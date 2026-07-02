@@ -123,15 +123,35 @@ Confirmed out-of-sample generalization across multiple independent
 test windows (2020-2021, 2023-2026) with parameters locked between
 windows.
 
-## Known Limitations
+## Known Limitations and Next Steps
 
 The model identifies **volatility-driven regime shifts** and structurally
 underperforms during **macro-driven bear markets** (e.g. 2022) where
 realized and implied volatility decouple from price direction. This is
 a known theoretical limitation of vol-based regime detectors, not an
 implementation flaw — the static GJR-GARCH benchmark fails identically
-in the same periods. Future work: incorporating leading macro indicators
-(yield curve slope, credit spreads) to capture macro-driven regimes.
+in the same periods.
+
+Beyond that, a consistently observed limitation is the re-entry lag: the model exits
+positions promptly when VIX rises (correctly catching the early phase of
+drawdowns) but re-enters slowly because the slope-based re-entry condition
+requires the smoothed bear probability to sustain a 20-day decline, by
+which point the early recovery has often already occurred.
+
+It's also important to acknowledge that the backtesting script also failed
+to account for slippage, which may not be negligible, despite the total
+number of trades across the 3.5 year testing period being somewhat low (43).
+
+For future iterations, explore attaching macro indicators (yield curve slope,
+credit spreads, fed funds futures) to address model weaknesses during macro-driven
+bear regimes.
+
+Also consider addressing structural redundancies between the symmetric
+shock response ($\alpha$) and the asymmetric leverage term ($\lambda_g$). The optimizer
+has been shown to set $\alpha$ to 0 because $\lambda_g$ subsumes its role for negative
+shocks. With $\alpha \approx 0$, positive shocks have essentially no impact on variance,
+which is empirically defensible for equity indices but represents a degenerate
+parameterization.
 
 ## References
 
