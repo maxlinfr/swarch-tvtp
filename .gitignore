@@ -1,0 +1,18 @@
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+
+# Data files
+*.csv
+*.parquet
+*.pkl
+
+# OS junk
+.DS_Store
+Thumbs.db
