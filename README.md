@@ -44,7 +44,7 @@ When the 20-day slope of the smoothed bear probability turns positive
 (rising fear trend), rotate from QQQ to XLU (growth etf to value etf). Revert when slope turns
 negative. Signal shifted one day forward to prevent look-ahead bias.
 
-For full mathematical derivation, see [METHODOLOGY.md](METHODOLOGY.md).
+For full mathematical derivation, see [methodology.md](methodology.md).
 
 ## Model Variants & Design Decisions
 
@@ -132,21 +132,21 @@ a known theoretical limitation of vol-based regime detectors, not an
 implementation flaw — the static GJR-GARCH benchmark fails identically
 in the same periods.
 
-Beyond that, a consistently observed limitation is the re-entry lag: the model exits
+Beyond that, a consistently observed limitation is the **re-entry lag**: the model exits
 positions promptly when VIX rises (correctly catching the early phase of
 drawdowns) but re-enters slowly because the slope-based re-entry condition
 requires the smoothed bear probability to sustain a 20-day decline, by
 which point the early recovery has often already occurred.
 
 It's also important to acknowledge that the backtesting script also failed
-to account for slippage, which may not be negligible, despite the total
+to account for **slippage**, which may not be negligible, despite the total
 number of trades across the 3.5 year testing period being somewhat low (43).
 
-For future iterations, explore attaching macro indicators (yield curve slope,
+For future iterations, explore attaching **macro indicators** (yield curve slope,
 credit spreads, fed funds futures) to address model weaknesses during macro-driven
 bear regimes.
 
-Also consider addressing structural redundancies between the symmetric
+Also consider addressing **structural redundancies** between the symmetric
 shock response ($\alpha$) and the asymmetric leverage term ($\lambda_g$). The optimizer
 has been shown to set $\alpha$ to 0 because $\lambda_g$ subsumes its role for negative
 shocks. With $\alpha \approx 0$, positive shocks have essentially no impact on variance,
